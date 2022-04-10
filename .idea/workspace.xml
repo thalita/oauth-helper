@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b594a0fb-7f48-4084-980e-98569591865d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/config/CustomConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/entities/Principal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/services/PrincipalRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/types/Chanell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oauth--helper.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/controllers/OtpPasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/controllers/OtpPasswordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/Chanell.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/CreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/models/CreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/CreateResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/models/CreateResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/VerifyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pucsp/oauthhelper/domain/models/VerifyRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/OauthHelperApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/OauthHelperApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/controllers/OtpPasswordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/controllers/OtpPasswordController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/domain/Chanell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/domain/CreateRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/domain/CreateResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pucsp/oauthhelper/domain/VerifyRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/pucsp/oauthhelper/OauthHelperApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/pucsp/oauthhelper/OauthHelperApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +78,7 @@
       <updated>1649618234255</updated>
       <workItem from="1649618235816" duration="766000" />
       <workItem from="1649619019228" duration="5039000" />
-      <workItem from="1649625738660" duration="3695000" />
+      <workItem from="1649625738660" duration="4776000" />
     </task>
     <servers />
   </component>
@@ -206,7 +188,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="redis" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
