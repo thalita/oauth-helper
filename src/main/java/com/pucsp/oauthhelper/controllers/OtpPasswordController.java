@@ -34,28 +34,30 @@ public class OtpPasswordController {
             repository.delete(principalCache.get());
         }
 
+        // TODO: usar framework para mapeamento ou pattner de build
         var principal = new Principal();
-
         principal.setIdentifier(createRequest.getIdentifier());
         principal.setSecretKey(generateSecretKey());
         principal.setChannel(Enum.valueOf(Chanell.class, createRequest.getChanell().toUpperCase()));
         principal.setEmail(createRequest.getEmail());
         principal.setPhone(createRequest.getPhone());
 
-        System.out.println("secretKey: "+principal.getSecretKey());
-
         repository.save(principal);
 
         var otp = generateTOTP(principal.getSecretKey());
 
-       // TODO: aqui deve enviar o codigo otp conforme channel do request
+        // TODO: remover para produção
+        System.out.println("secretKey: " + principal.getSecretKey());
+        System.out.println("OTP: " + otp);
+
+        // TODO: aqui deve enviar o codigo otp conforme channel do request
         switch (principal.getChannel()){
             case EMAIL:
                 break;
             case PHONE:
                 break;
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CreateResponse(otp));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/security/otp/verify")
@@ -73,7 +75,7 @@ public class OtpPasswordController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
-
+   // TODO: metodo deve virar um Bean para ser injetado
     public static String generateSecretKey() {
         SecureRandom random = new SecureRandom();
         var bytes = new byte[20];
@@ -81,7 +83,7 @@ public class OtpPasswordController {
         var base32 = new Base32();
         return base32.encodeToString(bytes);
     }
-
+    // TODO: metodo deve virar um Bean para ser injetado
     public static String generateTOTP(String secretKey) {
         var base32 = new Base32();
         var bytes = base32.decode(secretKey);
