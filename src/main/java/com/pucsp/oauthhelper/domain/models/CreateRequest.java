@@ -1,4 +1,4 @@
-package com.pucsp.oauthhelper.domain;
+package com.pucsp.oauthhelper.domain.models;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
 public class CreateRequest {
 
     String identifier;
-    Chanell chanell;
+    String chanell;
     String email;
     String phone;
 }
