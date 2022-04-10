@@ -1,6 +1,5 @@
-package com.pucsp.oauthhelper.domain;
+package com.pucsp.oauthhelper.domain.models;
 
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
