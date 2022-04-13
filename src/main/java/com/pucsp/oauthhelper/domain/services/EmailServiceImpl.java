@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class AbstractEmailService implements EmailService {
+public class EmailServiceImpl implements EmailService {
 
     @Value("${default.sender}")
     private String sender;
 
     private final MailSender mailSender;
 
-    public AbstractEmailService(MailSender mailSender) {
+    public EmailServiceImpl(MailSender mailSender) {
         this.mailSender = mailSender;
     }
 
