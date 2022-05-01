@@ -1,6 +1,5 @@
 package com.pucsp.oauthhelper.domain.services;
 
-import com.pucsp.oauthhelper.domain.models.CreateRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,19 +21,22 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    public void sendEmail(CreateRequest request, String otp) {
-        var sm = prepareSimpleMailMesssage(request, otp);
+    public void sendEmail(String recipient, String otp) {
+        var sm = prepareSimpleMailMesssage(recipient, otp);
         mailSender.send(sm);
     }
 
-    private SimpleMailMessage prepareSimpleMailMesssage(CreateRequest request, String otp) {
-        SimpleMailMessage sm = new SimpleMailMessage();
-        sm.setTo(request.getEmail());
-        sm.setFrom(sender);
-        sm.setSubject("OTP message");
-        sm.setSentDate((new Date(System.currentTimeMillis())));
-        sm.setText(otp);
-        return sm;
+    private SimpleMailMessage prepareSimpleMailMesssage(String recipient, String otp) {
+        var body = String.format("<h2>Olá,</h2><p>Seu código de autenticação: %s.</p>", otp);
 
+
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setTo(recipient);
+        sm.setFrom(sender);
+        sm.setSubject("Código de autenticação");
+        sm.setSentDate((new Date(System.currentTimeMillis())));
+        sm.setText(body);
+        return sm;
     }
+
 }

@@ -8,15 +8,19 @@ import com.pucsp.oauthhelper.domain.models.VerifyRequest;
 import com.pucsp.oauthhelper.domain.services.EmailService;
 import com.pucsp.oauthhelper.domain.services.PrincipalRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.pucsp.oauthhelper.config.CustomConfig.generateSecretKey;
 import static com.pucsp.oauthhelper.config.CustomConfig.generateTOTP;
 import static com.pucsp.oauthhelper.domain.entities.builders.PrincipalBuilder.build;
 
 @RestController
+@RequestMapping("/otp")
 public class OtpPasswordController {
 
     private final PrincipalRepository repository;
@@ -27,48 +31,41 @@ public class OtpPasswordController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/security/otp/create")
+    @PostMapping("/create")
     public ResponseEntity<CreateResponse> create(@RequestBody CreateRequest createRequest) {
-
         var principalCache = repository.findById(createRequest.getIdentifier());
-        if (principalCache.isPresent()) {
-            repository.delete(principalCache.get());
-        }
-        Principal principal = build(createRequest);
+        principalCache.ifPresent(repository::delete);
+
+        var secretKey = generateSecretKey();
+        var otp = generateTOTP(secretKey);
+
+        Principal principal = build(createRequest.getIdentifier(), otp);
         repository.save(principal);
 
-        var otp = generateTOTP(principal.getSecretKey());
 
-        // TODO: remover para produção
-        System.out.println("secretKey: " + principal.getSecretKey());
-        System.out.println("OTP: " + otp);
-
-        // TODO: aqui deve enviar o codigo otp conforme channel do request
-        switch (principal.getChannel()) {
-            case EMAIL:
-                emailService.sendEmail(createRequest, otp);
-            case PHONE:
+        switch (createRequest.getChannel()) {
+            case "email":
+                emailService.sendEmail(createRequest.getEmail(), otp);
+            case "phone":
                 break;
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/security/otp/verify")
+    @PostMapping("/verify")
     public ResponseEntity<String> verify(@RequestBody VerifyRequest verifyRequest) {
 
         var principal = repository.findById(verifyRequest.getIdentifier());
         if (principal.isPresent()) {
 
-            var otp = generateTOTP(principal.get().getSecretKey());
-            repository.delete(principal.get());
+            var otp = principal.get().getCode();
 
             if (verifyRequest.getCode().equals(otp)) {
+                repository.delete(principal.get());
+
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
-
-
-
 }

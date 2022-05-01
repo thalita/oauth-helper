@@ -1,12 +1,12 @@
 package com.pucsp.oauthhelper.domain.types;
 
-public enum Chanell {
+public enum Channel {
     EMAIL("email"),
     PHONE("phone");
 
     private final String name;
 
-    Chanell(String name) {
+    Channel(String name) {
         this.name = name;
     }
 

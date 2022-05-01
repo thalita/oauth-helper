@@ -5,7 +5,5 @@ import org.springframework.stereotype.Service;
 
 
 public interface EmailService {
-
-    void sendEmail(CreateRequest request, String otp);
-
+    void sendEmail(String recipient, String otp);
 }
