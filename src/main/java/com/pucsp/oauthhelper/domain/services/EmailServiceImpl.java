@@ -27,7 +27,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private SimpleMailMessage prepareSimpleMailMesssage(String recipient, String otp) {
-        var body = String.format("<h2>Olá,</h2><p>Seu código de autenticação: %s.</p>", otp);
+        var body = String.format("Olá, Seu código de autenticação: %s", otp);
 
 
         SimpleMailMessage sm = new SimpleMailMessage();
@@ -38,5 +38,4 @@ public class EmailServiceImpl implements EmailService {
         sm.setText(body);
         return sm;
     }
-
 }

@@ -6,9 +6,9 @@ import com.pucsp.oauthhelper.domain.models.CreateRequest;
 import com.pucsp.oauthhelper.domain.models.CreateResponse;
 import com.pucsp.oauthhelper.domain.models.VerifyRequest;
 import com.pucsp.oauthhelper.domain.services.EmailService;
+import com.pucsp.oauthhelper.domain.services.PhoneService;
 import com.pucsp.oauthhelper.domain.services.PrincipalRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +25,12 @@ public class OtpPasswordController {
 
     private final PrincipalRepository repository;
     private final EmailService emailService;
+    private final PhoneService phoneService;
 
-    public OtpPasswordController(PrincipalRepository repository, EmailService emailService) {
+    public OtpPasswordController(PrincipalRepository repository, EmailService emailService, PhoneService phoneService) {
         this.repository = repository;
         this.emailService = emailService;
+        this.phoneService = phoneService;
     }
 
     @PostMapping("/create")
@@ -47,6 +49,7 @@ public class OtpPasswordController {
             case "email":
                 emailService.sendEmail(createRequest.getEmail(), otp);
             case "phone":
+                phoneService.sendSMS(createRequest.getPhone(), otp);
                 break;
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
