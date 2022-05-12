@@ -5,10 +5,12 @@ import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.security.SecureRandom;
+import java.util.Map;
 
 @Configuration
 public class CustomConfig {
@@ -21,11 +23,12 @@ public class CustomConfig {
     }
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory jedisConFactory
-                = new JedisConnectionFactory();
-        jedisConFactory.setHostName("localhost");
-        jedisConFactory.setPort(6379);
-        return jedisConFactory;
+        Map<String, String> env = System.getenv();
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(
+            env.getOrDefault("REDIS_HOST", "localhost"),
+            6379
+        );
+        return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 
     @Bean

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.pucsp</groupId>
-    <artifactId>oauth--helper</artifactId>
+    <artifactId>oauth-helper</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>oauth--helper</name>
-    <description>oauth--helper</description>
+    <name>oauth-helper</name>
+    <description>oauth-helper</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -33,6 +33,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.6.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
             <version>2.6.7</version>
         </dependency>
 
@@ -67,7 +73,7 @@
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
-            <version>3.4.1</version>
+            <version>3.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
