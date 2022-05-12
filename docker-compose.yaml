@@ -1,0 +1,14 @@
+services:
+  oauth-helper:
+    image: thalitamba/oauth-helper
+    build: ./
+    ports:
+    - "8080:8080"
+    depends_on:
+    - redis
+    links:
+    - redis
+    env_file:
+    - .env
+  redis:
+    image: redis
