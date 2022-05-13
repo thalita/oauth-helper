@@ -1,42 +1,43 @@
-family: oauth-helper
-taskRoleArn: "${TASK_ROLE_ARN}"
-executionRoleArn: "${TASK_ROLE_ARN}"
+family: "oauth-helper"
+taskRoleArn: "arn:aws:iam::226207443462:role/OauthHelperECSTask"
+executionRoleArn: "arn:aws:iam::226207443462:role/OauthHelperECSTask"
 cpu: "256"
 memory: "512"
-networkMode: awsvpc
+networkMode: "awsvpc"
 containerDefinitions:
-- name: oauth-helper
+- name: "oauth-helper"
   essential: true
-  image: thalitamba/oauth-helper:latest
+  image: "thalitamba/oauth-helper:latest"
   repositoryCredentials:
-    credentialsParameter: "${REPOSITORY_CREDENTIALS}"
+    credentialsParameter: "arn:aws:secretsmanager:us-east-1:226207443462:secret:docker-hub-credential-Ltdz31"
+  secrets:
+  - name: "AWS_ACCESS_KEY_ID"
+    valueFrom: "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:AWS_ACCESS_KEY_ID::"
+  - name: "AWS_SECRET_ACCESS_KEY"
+    valueFrom: "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:AWS_SECRET_ACCESS_KEY::"
+  - name: "REDIS_HOST"
+    valueFrom: "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:REDIS_HOST::"
+  - name: "SPRING_MAIL_DEFAULT_SENDER"
+    valueFrom: "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:SPRING_MAIL_DEFAULT_SENDER::"
+  - name: "SPRING_MAIL_USERNAME"
+    valueFrom: "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:SPRING_MAIL_USERNAME::"
+  - name: "SPRING_MAIL_PASSWORD"
+    valueFrom: "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:SPRING_MAIL_PASSWORD::"
   environment:
-  - name: SPRING_MAIL_DEFAULT_SENDER
-    value: "${SPRING_MAIL_DEFAULT_SENDER}"
-  - name: SPRING_MAIL_USERNAME
-    value: "${SPRING_MAIL_USERNAME}"
-  - name: SPRING_MAIL_HOST
-    value: email-smtp.us-east-1.amazonaws.com
-  - name: SPRING_LOGGING_LEVEL
-    value: DEBUG
-  - name: SPRING_MAIL_PASSWORD
-    value: "${SPRING_MAIL_PASSWORD}"
-  - name: SPRING_MAIL_SMTP_PORT
+  - name: "SPRING_MAIL_HOST"
+    value: "email-smtp.us-east-1.amazonaws.com"
+  - name: "SPRING_LOGGING_LEVEL"
+    value: "DEBUG"
+  - name: "SPRING_MAIL_SMTP_PORT"
     value: "465"
-  - name: SPRING_DEVTOOLS_LIVERELOAD_ENABLED
+  - name: "SPRING_DEVTOOLS_LIVERELOAD_ENABLED"
     value: "true"
-  - name: SPRING_MAIL_SMTP_AUTH
+  - name: "SPRING_MAIL_SMTP_AUTH"
     value: "true"
-  - name: REDIS_HOST
-    value: "${REDIS_HOST}"
-  - name: AWS_ACCESS_KEY_ID
-    value: "${AWS_ACCESS_KEY_ID}"
-  - name: AWS_SECRET_ACCESS_KEY
-    value: "${AWS_SECRET_ACCESS_KEY}"
   portMappings:
   - containerPort: 8080
     hostPort: 8080
-    protocol: tcp
+    protocol: "tcp"
   healthCheck:
     command:
     - "CMD-SHELL"
@@ -46,14 +47,14 @@ containerDefinitions:
     retries: 3
     startPeriod: 30
   logConfiguration:
-    logDriver: awslogs
+    logDriver: "awslogs"
     options:
-      "awslogs-create-group": "true"
-      "awslogs-group": "oauth-helper"
-      "awslogs-region": "us-east-1"
-      "awslogs-stream-prefix": "oauth-helper"
+      awslogs-create-group: "true"
+      awslogs-group: "oauth-helper"
+      awslogs-region: "us-east-1"
+      awslogs-stream-prefix: "oauth-helper"
 requiresCompatibilities:
-- FARGATE
+- "FARGATE"
 runtimePlatform:
-  cpuArchitecture: X86_64
-  operatingSystemFamily: LINUX
+  cpuArchitecture: "X86_64"
+  operatingSystemFamily: "LINUX"
