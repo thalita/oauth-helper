@@ -11,8 +11,6 @@ RUN mvn package -Dmaven.test.skip=true
 
 FROM openjdk:18-ea-11-jdk-alpine
 
-
-
 EXPOSE 8080
 ENTRYPOINT [ "java", "-jar", "/app/target/oauth-helper-0.0.1-SNAPSHOT.jar", "--server.port=8080" ]
 

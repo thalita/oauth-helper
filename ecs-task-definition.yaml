@@ -29,6 +29,10 @@ containerDefinitions:
     value: "true"
   - name: REDIS_HOST
     value: "${REDIS_HOST}"
+  - name: AWS_ACCESS_KEY_ID
+    value: "${AWS_ACCESS_KEY_ID}"
+  - name: AWS_SECRET_ACCESS_KEY
+    value: "${AWS_SECRET_ACCESS_KEY}"
   portMappings:
   - containerPort: 8080
     hostPort: 8080
