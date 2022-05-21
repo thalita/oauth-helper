@@ -1,0 +1,99 @@
+{
+  "family": "oauth-helper",
+  "taskRoleArn": "OauthHelperECSTask",
+  "executionRoleArn": "OauthHelperECSTask",
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "oauth-helper",
+      "essential": true,
+      "image": "thalitamba/oauth-helper:latest",
+      "repositoryCredentials": {
+        "credentialsParameter": "arn:aws:secretsmanager:us-east-1:226207443462:secret:docker-hub-credential-Ltdz31"
+      },
+      "secrets": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:AWS_ACCESS_KEY_ID::"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:AWS_SECRET_ACCESS_KEY::"
+        },
+        {
+          "name": "REDIS_HOST",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:REDIS_HOST::"
+        },
+        {
+          "name": "SPRING_MAIL_DEFAULT_SENDER",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:SPRING_MAIL_DEFAULT_SENDER::"
+        },
+        {
+          "name": "SPRING_MAIL_USERNAME",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:SPRING_MAIL_USERNAME::"
+        },
+        {
+          "name": "SPRING_MAIL_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:226207443462:secret:oauth-helper-secrets-AST1Fh:SPRING_MAIL_PASSWORD::"
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_MAIL_HOST",
+          "value": "email-smtp.us-east-1.amazonaws.com"
+        },
+        {
+          "name": "SPRING_LOGGING_LEVEL",
+          "value": "DEBUG"
+        },
+        {
+          "name": "SPRING_MAIL_SMTP_PORT",
+          "value": "465"
+        },
+        {
+          "name": "SPRING_DEVTOOLS_LIVERELOAD_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "SPRING_MAIL_SMTP_AUTH",
+          "value": "true"
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"
+        ],
+        "interval": 10,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 30
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "oauth-helper",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "oauth-helper"
+        }
+      }
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}

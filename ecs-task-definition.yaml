@@ -1,6 +1,6 @@
 family: "oauth-helper"
-taskRoleArn: "arn:aws:iam::226207443462:role/OauthHelperECSTask"
-executionRoleArn: "arn:aws:iam::226207443462:role/OauthHelperECSTask"
+taskRoleArn: "OauthHelperECSTask"
+executionRoleArn: "OauthHelperECSTask"
 cpu: "256"
 memory: "512"
 networkMode: "awsvpc"

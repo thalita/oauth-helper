@@ -15,6 +15,9 @@
     <description>oauth-helper</description>
     <properties>
         <java.version>11</java.version>
+        <sonar.organization>thalita</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>oauth-helper</sonar.projectKey>
     </properties>
 
     <dependencyManagement>
