@@ -1,12 +1,17 @@
 package com.pucsp.oauthhelper.domain.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Optional;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateRequest {
-    private final String identifier;
-    private final String channel;
-    private final Optional<String> email;
-    private final Optional<String> phone;
+    private String identifier;
+    private String channel;
+    private Optional<String> email;
+    private Optional<String> phone;
 }
