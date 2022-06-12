@@ -49,10 +49,9 @@ public class OtpPasswordController {
             case "email":
                 emailService.sendEmail(createRequest.getEmail().orElseThrow(), otp);
                 break;
-            // TODO descomentar essas linhas na hora da apresentação pois esse recurso é pago.
-            // case "phone":
-            //     phoneService.sendSMS(createRequest.getPhone().orElseThrow(), otp);
-            //    break;
+             case "phone":
+                 phoneService.sendSMS(createRequest.getPhone().orElseThrow(), otp);
+                break;
             default:
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
