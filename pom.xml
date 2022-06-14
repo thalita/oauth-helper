@@ -156,7 +156,6 @@
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
-                            <enable>true</enable>
                         </goals>
                     </execution>
                 </executions>
