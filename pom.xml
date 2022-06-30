@@ -17,6 +17,7 @@
         <java.version>11</java.version>
         <sonar.organization>thalita</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.exclusions>**/config/**,**/entities/**,**/models/**,**/types/**, **OauthHelperApplication.java, **PhoneServiceImpl.java</sonar.coverage.exclusions>
     </properties>
 
     <dependencyManagement>
