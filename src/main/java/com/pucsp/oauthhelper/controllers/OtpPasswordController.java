@@ -8,6 +8,7 @@ import com.pucsp.oauthhelper.domain.models.VerifyRequest;
 import com.pucsp.oauthhelper.domain.services.EmailService;
 import com.pucsp.oauthhelper.domain.services.PhoneService;
 import com.pucsp.oauthhelper.domain.services.PrincipalRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.pucsp.oauthhelper.config.CustomConfig.generateSecretKey;
-import static com.pucsp.oauthhelper.config.CustomConfig.generateTOTP;
+import static com.pucsp.oauthhelper.config.CustomConfig.*;
 import static com.pucsp.oauthhelper.domain.entities.builders.PrincipalBuilder.build;
 
 @RestController
@@ -59,6 +59,7 @@ public class OtpPasswordController {
     }
 
     @PostMapping("/verify")
+    @Cacheable(value = INDEX_IDENTIFIER)
     public ResponseEntity<String> verify(@RequestBody VerifyRequest verifyRequest) {
 
         var principal = repository.findById(verifyRequest.getIdentifier());

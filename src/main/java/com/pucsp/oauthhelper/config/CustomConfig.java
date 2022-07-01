@@ -3,17 +3,26 @@ package com.pucsp.oauthhelper.config;
 import de.taimos.totp.TOTP;
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Hex;
+import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.security.SecureRandom;
+import java.time.Duration;
+import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 public class CustomConfig {
+
+
+    public static final String INDEX_IDENTIFIER = "indexIdentifier";
+    private static final Integer MINUTES = 2;
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
@@ -21,6 +30,7 @@ public class CustomConfig {
         template.setConnectionFactory(jedisConnectionFactory());
         return template;
     }
+
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         Map<String, String> env = System.getenv();
@@ -29,6 +39,16 @@ public class CustomConfig {
             6379
         );
         return new JedisConnectionFactory(redisStandaloneConfiguration);
+    }
+
+    @Bean
+    RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer(){
+        return (builder) -> {
+            Map<String, RedisCacheConfiguration> mapConfig = new HashMap<>();
+            mapConfig.put(INDEX_IDENTIFIER, RedisCacheConfiguration.defaultCacheConfig())
+                    .entryTtl(Duration.ofMinutes(MINUTES));
+            builder.withInitialCacheConfigurations(mapConfig);
+        };
     }
 
     @Bean
